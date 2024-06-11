@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktív Weboldal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        table, th, td {
+            border: 1px solid rgb(0, 0, 0);
+            text-align: center;
+            padding: 10px;
+        }
+        td.rejt {
+            visibility: hidden;
+        }
+        #egy {
+            background-color: rgb(168, 208, 221); 
+        }
+        #ketto{
+            background-color: rgb(78, 0, 0); 
+        }
+        #harom{
+            background-color: rgb(165, 0, 115); 
+        }
+        #negy{
+            background-color: rgb(30, 243, 2); 
+        }
+        #ot{
+            background-color: rgb(189, 113, 0); 
+        }
+        #hat{
+            background-color: rgb(177, 197, 0); 
+        }
+        #het{
+            background-color: rgb(0, 70, 9); 
+        }
+        #nyolc{
+            background-color: rgb(70, 0, 52); 
+        }
+        #kilenc{
+            background-color: rgb(148, 39, 84); 
+        }
+        button {
+            padding: 10px 20px;
+        }
+        .cc, .lic {
+            border: 1px solid rgb(0, 0, 0);
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .counter-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .table-container, .lic {
+            width: 100%;
+            max-width: 500px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <h2>Táblázat</h2>
+    <table id="tab">
+        <tr>
+            <td id="egy" onclick="nocell(this)"></td>
+            <td id="ketto" onclick="nocell(this)"></td>
+            <td id="harom" onclick="nocell(this)"></td>
+        </tr>
+        <tr>
+            <td id="negy" onclick="nocell(this)"></td>
+            <td id="ot" onclick="nocell(this)"></td>
+            <td id="hat" onclick="nocell(this)"></td>
+        </tr>
+        <tr>
+            <td id="het" onclick="nocell(this)"></td>
+            <td id="nyolc" onclick="nocell(this)"></td>
+            <td id="kilenc" onclick="nocell(this)"></td>
+        </tr>
+    </table>
+    <button onclick="ujr()">Újra</button>
+</div>
+
+<hr> 
+
+<div class="cc">
+    <h2>Számláló</h2>
+    <div id="counter">0</div>
+    <div class="counter-buttons">
+        <button onclick="min()">-</button>
+        <button onclick="plusz()">+</button>
+    </div>
+</div>
+
+<hr>
+
+<div class="lic">
+    <h2>Bevásárló Lista</h2>
+    <input type="text" id="tbe" placeholder="Add hozzá az elemet" />
+    <button onclick="addItem()">Hozzáad</button>
+    <ul id="hadd"></ul>
+</div>
+
+<script>
+ 
+    let counter = 0;
+    const counterElement = document.getElementById('counter');
+
+    function plusz() {
+        counter++;
+        counterElement.textContent = counter;
+    }
+
+    function min() {
+        counter--;
+        counterElement.textContent = counter;
+    }
+
+   
+    function nocell(cell) {
+        cell.classList.add('rejt');
+    }
+
+    function ujr() {
+        const cells = document.querySelectorAll('#tab td');
+        cells.forEach(cell => cell.classList.remove('rejt'));
+    }
+
+
+    const hadd = document.getElementById('hadd');
+    const tbe = document.getElementById('tbe');
+
+    function addItem() {
+        const szoveg = tbe.value.trim();
+        if (szoveg === '') return;
+
+        const Lelem = document.createElement('li');
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'X';
+        removeButton.classList.add('remove-button');
+        removeButton.onclick = () => Lelem.remove();
+
+        Lelem.textContent = szoveg;
+        Lelem.appendChild(removeButton);
+        hadd.appendChild(Lelem);
+
+        tbe.value = '';
+        tbe.focus();
+    }
+</script>
+
+</body>
+</html>
 
